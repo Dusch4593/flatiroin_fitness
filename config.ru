@@ -6,7 +6,8 @@ end
 
 use Rack::MethodOverride
 
-use UsersController
-use RoutinesController
-use ExercisesController
 run ApplicationController
+use RoutinesController
+use SessionsController
+use UsersController
+use ExercisesController
