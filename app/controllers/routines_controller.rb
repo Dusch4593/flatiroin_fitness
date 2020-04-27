@@ -1,12 +1,16 @@
 class RoutinesController < ApplicationController
   get '/routines' do
-    @routines = Routine.all
-    erb :'routines/index'
+    if is_logged_in?
+      @routines = current_user.routines.all
+      erb :"routines/index"
+    else
+      erb :"sessions/error"
+    end
   end
 
   get '/routines/new' do
     @users = User.all
-    erb :'routines/new'
+    erb :"routines/new"
   end
 
   post '/routines' do
@@ -14,14 +18,14 @@ class RoutinesController < ApplicationController
     if @routine.save
       redirect '/routines' # redirect '/routines/#{routine.id}'
     else
-      erb :'routines/new'
+      erb :"routines/new"
     end
   end
 
   get '/routines/:id' do
     @routine = Routine.find_by(params[:id])
     if @routine.user_id == current_user.id
-      erb :'routines/show'
+      erb :"routines/show"
     else
       redirect '/routines'
     end
@@ -30,7 +34,7 @@ class RoutinesController < ApplicationController
   get '/routines/:id/edit' do
     @routine = Routine.find_by(params[:id])
     if @routine.user_id == current_user.id
-      erb :'routines/edit'
+      erb :"routines/edit"
     else
       redirect '/routines'
     end

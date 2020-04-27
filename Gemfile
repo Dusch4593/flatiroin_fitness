@@ -11,7 +11,6 @@ gem 'shotgun'
 gem 'pry'
 gem 'bcrypt'
 gem 'tux'
-gem 'sysrandom', :require => 'sysrandom/securerandom'
 gem 'faker'
 
 group :test do

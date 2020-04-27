@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20200424233118) do
   create_table "routines", force: :cascade do |t|
     t.string   "name"
     t.integer  "times_per_week"
+    t.integer  "user_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
