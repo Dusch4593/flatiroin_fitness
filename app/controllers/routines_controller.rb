@@ -9,8 +9,7 @@ class RoutinesController < ApplicationController
   end
 
   get '/routines/new' do
-    @users = User.all
-    erb :"routines/new"
+   erb :"routines/new"
   end
 
   post '/routines' do
@@ -23,7 +22,7 @@ class RoutinesController < ApplicationController
   end
 
   get '/routines/:id' do
-    @routine = Routine.find_by(params[:id])
+    @routine = Routine.find_by_id(params[:id])
     if @routine.user_id == current_user.id
       erb :"routines/show"
     else
@@ -32,7 +31,7 @@ class RoutinesController < ApplicationController
   end
 
   get '/routines/:id/edit' do
-    @routine = Routine.find_by(params[:id])
+    @routine = Routine.find_by_id(params[:id])
     if @routine.user_id == current_user.id
       erb :"routines/edit"
     else
@@ -41,7 +40,7 @@ class RoutinesController < ApplicationController
   end
 
   patch '/routines/:id' do
-    @routine = Routine.find_by(params[:id])
+    @routine = Routine.find_by_id(params[:id])
     params.delete("_method")
     if @routine.user_id == current_user.id && @routine.update(name: params[:name], times_per_week: params[:times_per_week])
       redirect "/routines/#{@routine.id}"
@@ -51,7 +50,7 @@ class RoutinesController < ApplicationController
   end
 
   delete '/routines/:id' do
-    @routine = Routine.find_by(params[:id])
+    @routine = Routine.find_by_id(params[:id])
     if @routine.user_id == current_user.id
       @routine.delete
       redirect '/routines'

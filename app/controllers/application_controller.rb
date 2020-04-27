@@ -6,7 +6,7 @@ class ApplicationController < Sinatra::Base
     set :public_folder, 'public'
     set :views, 'app/views'
     enable :sessions
-    set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) }
+    set :session_secret, "super_secret"
   end
 
   get '/' do
@@ -15,11 +15,11 @@ class ApplicationController < Sinatra::Base
 
   helpers do
     def is_logged_in?
-      session[:user_id] ? true : false
+      session[:user_id]
     end
 
     def current_user
-      @current_user ||= session[:user_id] ? User.find(session[:user_id]) : nil
+      @user ||=  User.find_by(id: session[:user_id])
     end
   end
 end
