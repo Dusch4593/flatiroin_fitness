@@ -1,7 +1,8 @@
 <h1>Routines for <%= current_user.name %></h1>
+<a href="/routines/new">Create Routine</a>
 <a href="/users">Back to Home Page</a><br>
 <br>
 
 <% @routines.each do |routine| %>
-  <a href="/routines/:id"><%= routine.name %></a>
+  <a href="/routines/<%=routine.id %>" id="<%=routine.id%>"><%= routine.name %></a><br>
 <% end %>

@@ -3,4 +3,20 @@
 <form action="/routines" method="POST">
   Name: <input type="text" name="name" placeholder="Routine Name"><br>
   How Many Times Per Week? <input type="text" name="times_per_week" placeholder="Times per Week"><br>
+
+  <strong>Choose from a list of exercises:</strong> <br>
+
+  <% @exercises.each do |exercise| %>
+    <input type="checkbox" name="routine[exercises][]" id="<%= exercise.id %>"
+      value="<%= exercise.id %>" <%='checked' if @routine.exercises.include?(exercise) %>><%= exercise.name %>
+    </input><br>
+  <% end %>
+
+  <br>
+
+  <strong>... or create a new Exercise!</strong><br>
+  Name: <input type="text" name="name"><br>
+  Sets: <input type="text" name="sets"><br>
+  Reps: <input type="text" name="reps"><br>
+  <input type="submit">
 </form>

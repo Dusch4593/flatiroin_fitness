@@ -1,1 +1,8 @@
+<h1><%= @routine.name %></h1>
+<a href="/routines">Back to Routines</a>
 
+<h2>Exercises</h2>
+
+<% @exercises.each do |exercise| %>
+  <h3><%= exercise.name %></h3>
+<% end %>

@@ -9,11 +9,15 @@ class RoutinesController < ApplicationController
   end
 
   get '/routines/new' do
-   erb :"routines/new"
+    @exercises = Exercise.all
+    erb :"routines/new"
   end
 
   post '/routines' do
-    @routine = current_user.routines.build(name: params[:name], times_per_week: params[:times_per_week])
+    @routine = Routine.new
+    @routine[:name] = params[:name]
+    @routine[:times_per_week] = params[:times_per_week]
+    current_user.routines << @routine
     if @routine.save
       redirect '/routines' # redirect '/routines/#{routine.id}'
     else
@@ -23,6 +27,7 @@ class RoutinesController < ApplicationController
 
   get '/routines/:id' do
     @routine = Routine.find_by_id(params[:id])
+    @exercises = @routine.exercises
     if @routine.user_id == current_user.id
       erb :"routines/show"
     else
