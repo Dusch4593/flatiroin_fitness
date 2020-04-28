@@ -7,9 +7,8 @@
 
   <strong>Choose from a list of exercises:</strong> <br>
 
-  <% current_user.exercises.each do |exercise| %>
-    <input type="checkbox" name="exercises[]" id="<%= exercise.id %>"
-      value="<%= exercise.id %>" <%='checked' if @routine.exercises.include?(exercise) %>><%= exercise.name %>
+  <% @exercises.each do |exercise| %>
+    <input type="checkbox"><%= exercise.name %>
     </input><br>
   <% end %>
 

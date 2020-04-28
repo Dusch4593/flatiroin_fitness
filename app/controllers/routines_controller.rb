@@ -9,7 +9,7 @@ class RoutinesController < ApplicationController
   end
 
   get '/routines/new' do
-    @exercises = current_user.exercises
+    @exercises = Exercise.all
     erb :"routines/new"
   end
 
@@ -17,6 +17,7 @@ class RoutinesController < ApplicationController
     @routine = Routine.new
     @routine[:name] = params[:name]
     @routine[:times_per_week] = params[:times_per_week]
+    binding.pry
     if @routine.save && !params[:exercises].first[:name].empty?
       current_user.routines << @routine
       params[:exercises].each do |details|
