@@ -5,7 +5,7 @@
 <h2>Exercises</h2>
 
 <% @exercises.each do |exercise| %>
-  <h3><%= exercise.name %></h3>
+  <a href="/exercises/<%= exercise.id %>"><h3><%= exercise.name %></h3></a>
 <% end %>
 
 <form action="/routines/<%= @routine.id %>/edit" method="GET">
