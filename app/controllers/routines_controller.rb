@@ -9,7 +9,7 @@ class RoutinesController < ApplicationController
   end
 
   get '/routines/new' do
-    @exercises = Exercise.all
+    @exercises = current_user.exercises
     erb :"routines/new"
   end
 
@@ -17,8 +17,14 @@ class RoutinesController < ApplicationController
     @routine = Routine.new
     @routine[:name] = params[:name]
     @routine[:times_per_week] = params[:times_per_week]
-    current_user.routines << @routine
-    if @routine.save
+    if @routine.save && !params[:exercises].first[:name].empty?
+      current_user.routines << @routine
+      params[:exercises].each do |details|
+        @exercise = Exercise.new(details)
+        @exercise[:routine_id] = @routine.id
+        @exercise.save
+        current_user.exercises << @exercise
+      end
       redirect '/routines' # redirect '/routines/#{routine.id}'
     else
       erb :"routines/new"
@@ -47,6 +53,7 @@ class RoutinesController < ApplicationController
   patch '/routines/:id' do
     @routine = Routine.find_by_id(params[:id])
     params.delete("_method")
+    binding.pry
     if @routine.user_id == current_user.id && @routine.update(name: params[:name], times_per_week: params[:times_per_week])
       redirect "/routines/#{@routine.id}"
     else

@@ -1,8 +1,18 @@
+<a href="/users">Home</a> > <a href="/routines">Routines</a> > <%= @routine.name %>
 <h1><%= @routine.name %></h1>
-<a href="/routines">Back to Routines</a>
+
 
 <h2>Exercises</h2>
 
 <% @exercises.each do |exercise| %>
   <h3><%= exercise.name %></h3>
 <% end %>
+
+<form action="/routines/<%= @routine.id %>/edit" method="GET">
+  <input type="submit" value="Edit Routine">
+</form>
+
+<form action="/routines/<%= @routine.id %>" method="POST">
+  <input id="hidden" type="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete Routine">
+</form>

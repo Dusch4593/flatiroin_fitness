@@ -1,3 +1,4 @@
+<a href="/users">Home</a> > <a href="/routines">Routines</a> > New Routine
 <h1>New Routine For <%= current_user.name %>!</h1>
 
 <form action="/routines" method="POST">
@@ -6,8 +7,8 @@
 
   <strong>Choose from a list of exercises:</strong> <br>
 
-  <% @exercises.each do |exercise| %>
-    <input type="checkbox" name="routine[exercises][]" id="<%= exercise.id %>"
+  <% current_user.exercises.each do |exercise| %>
+    <input type="checkbox" name="exercises[]" id="<%= exercise.id %>"
       value="<%= exercise.id %>" <%='checked' if @routine.exercises.include?(exercise) %>><%= exercise.name %>
     </input><br>
   <% end %>
@@ -15,8 +16,8 @@
   <br>
 
   <strong>... or create a new Exercise!</strong><br>
-  Name: <input type="text" name="name"><br>
-  Sets: <input type="text" name="sets"><br>
-  Reps: <input type="text" name="reps"><br>
+  Name: <input type="text" name="exercises[][name]"><br>
+  Sets: <input type="text" name="exercises[][sets]"><br>
+  Reps: <input type="text" name="exercises[][reps]"><br>
   <input type="submit">
 </form>

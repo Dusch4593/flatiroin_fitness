@@ -1,1 +1,13 @@
 <h1>New Exercise For <%= current_user.name %></h1>
+
+<form action="/routines">
+  Name: <input type="text" name="name" placeholder="name of exercise"><br>
+  Sets: <input type="text" name="sets" placeholder="number of sets"><br>
+  Reps: <input type="text" name="reps" placeholder="number of reps"><br>
+
+  Add to a Routine:
+  <input type="radio" name="routine[exercises][]" id="<%= exercise.id %>"
+    value="<%= exercise.id %>" <%='checked' if @routine.exercises.include?(exercise) %>><%= exercise.name %>
+  </input><br>
+  <input type="submit">
+</form>

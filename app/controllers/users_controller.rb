@@ -5,11 +5,12 @@ class UsersController < ApplicationController
 
   post '/users' do
     @user = User.new(name: params[:name], email: params[:email], password: params[:password])
+    # go with build() instead of new(); research the difference, pros and cons
     if @user.save
       session[:user_id] = @user.id
       redirect '/users'
     else
-      redirect '/users/new'
+      erb :"users/new"
     end
   end
 
